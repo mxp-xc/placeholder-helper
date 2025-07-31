@@ -151,7 +151,7 @@ class SimplePlaceholderPart(BasePart):
             return self._fallback
         return context.handle_unresolvable_placeholder(self._key, self.text)
 
-    def _resolve_recursively(self, context: PartResolutionContext) -> str:
+    def _resolve_recursively(self, context: PartResolutionContext) -> str | None:
         if self.text != self._key:
             value = context.resolve_recursively(self.text)
             if value is not None:
