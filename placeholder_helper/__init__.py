@@ -210,7 +210,7 @@ class PlaceholderHelper:
     def replace_placeholders(
         self,
         value: str,
-        placeholder_resolver: Callable[[str], str] | Mapping[str, str],
+        placeholder_resolver: Callable[[str], str | None] | Mapping[str, str],
         ignore_unresolvable_placeholders: bool | None = None,
     ) -> str:
         if isinstance(placeholder_resolver, Mapping):
@@ -256,7 +256,7 @@ class PlaceholderHelper:
                 self._add_text(value, position, start_index - 1, parts)
 
                 next_position = start_index + len(self._prefix)
-                self._add_text(value, position, next_position, parts)
+                self._add_text(value, start_index, next_position, parts)
                 start_index = self._next_start_prefix(value, next_position)
             else:
                 self._add_text(value, position, start_index, parts)
@@ -323,7 +323,8 @@ class PlaceholderHelper:
         if parts and isinstance(parts[-1], TextPart):
             part: TextPart = cast(TextPart, parts[-1])
             parts[-1] = TextPart(part.text + text)
-        parts.append(TextPart(text))
+        else:
+            parts.append(TextPart(text))
 
     def _parse_section(self, value: str) -> tuple[str, str | None]:
         if self._separator is None or self._separator not in value:
@@ -345,6 +346,7 @@ class PlaceholderHelper:
             buffer.append(value[index:position])
             index = value.find(self._separator, position)
 
+        buffer.append(value[position:])
         return "".join(buffer), None
 
     def _is_escaped(self, value: str, index: int):
