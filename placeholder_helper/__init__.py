@@ -200,7 +200,7 @@ class PlaceholderHelper:
         self._ignore_unresolvable_placeholders = ignore_unresolvable_placeholders
 
         simple_prefix_for_suffix = self._WELL_KNOWN_SIMPLE_PREFIXES.get(self._suffix)
-        if self._suffix and self._prefix.endswith(simple_prefix_for_suffix):
+        if simple_prefix_for_suffix and self._prefix.endswith(simple_prefix_for_suffix):
             simple_prefix = simple_prefix_for_suffix
         else:
             simple_prefix = self._prefix
