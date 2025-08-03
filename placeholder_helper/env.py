@@ -135,7 +135,7 @@ class PropertyResolver:
         property_sources: MutablePropertySources,
         placeholder_prefix: str = "${",
         placeholder_suffix: str = "}",
-        value_separator: str = "}",
+        value_separator: str = ":",
     ):
         self._placeholder_prefix = placeholder_prefix
         self._placeholder_suffix = placeholder_suffix
@@ -221,7 +221,7 @@ class PropertyResolver:
 
 
 class Environment:
-    ACTIVE_PROFILES_PROPERTY_NAME = "spring.profiles.active"
+    ACTIVE_PROFILES_PROPERTY_NAME = "env.profiles.active"
 
     def __init__(
         self,
