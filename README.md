@@ -43,8 +43,8 @@ assert "foo=bar, bar=bar" == helper.replace_placeholders("foo=${foo}, bar=${bar}
 
 ```python
 environment = StandardEnvironment()
-child.active_profiles = ["c1", "c2"]
-child.property_sources.append_last(
+environment.active_profiles = ["c1", "c2"]
+environment.property_sources.append_last(
     MappingPropertySource(
         "childMock", {"childKey": "childVal", "bothKey": "childBothVal"}
     )
